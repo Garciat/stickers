@@ -4,6 +4,8 @@
 <script>
   async function PrepareStickerPack() {
     const pack = {
+      "ios_app_store_link": "",
+      "android_play_store_link": "",
       "identifier": "Hello",
       "name": "Hello",
       "publisher": "garciat.com",
@@ -26,7 +28,10 @@
         },
       ],
     };
-    navigator.clipboard.writeText(JSON.stringify(pack));
+
+    const json = JSON.stringify(pack);
+    
+    await navigator.clipboard.write([new ClipboardItem(["net.whatsapp.third-party.sticker-pack"]: json)]);
   }
 
   async function SingleColorImage(width, height, color) {
