@@ -1,1 +1,53 @@
-<a href="whatsapp://stickerPack">WhatsApp Sticker Pack</a>
+<a href="whatsapp://stickerPack" onclick="PrepareStickerPack()">WhatsApp Sticker Pack</a>
+
+<script>
+  async function PrepareStickerPack() {
+    const pack = {
+      "identifier": "Hello",
+      "name": "Hello",
+      "publisher": "garciat.com",
+      "tray_image": await SingleColorImage(96, 96, 'red'),
+      "stickers": [
+        {
+          "image_data": await SingleColorImage(512, 512, 'green'),
+          "accessibility_text": "Empty",
+          "emojis": [],
+        },
+        {
+          "image_data": await SingleColorImage(512, 512, 'blue'),
+          "accessibility_text": "Empty",
+          "emojis": [],
+        },
+        {
+          "image_data": await SingleColorImage(512, 512, 'purple'),
+          "accessibility_text": "Empty",
+          "emojis": [],
+        },
+      ],
+    };
+    navigator.clipboard.writeText(JSON.stringify(pack));
+  }
+
+  async function SingleColorImage(width, height, color) {
+    const canvas = new OffscreenCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, width, height);
+
+    const blob = await canvas.convertToBlob({type: "image/webp"});
+
+    return await BlobToBase64(blob);
+  }
+
+  function BlobToBase64(blob) {
+    const {promise, resolve, reject} = Promise.withResolvers();
+
+    const f = new FileReader();
+    f.onerror = () => reject(f.error);
+    f.onload = () => resolve(f.result.split(',', 2)[1]);
+
+    f.readAsDataURL(blob);
+
+    return promise;
+  }
+</script>
