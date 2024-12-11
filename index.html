@@ -41,7 +41,7 @@
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, width, height);
 
-    const blob = await canvas.convertToBlob({type: "image/webp"});
+    const blob = await canvas.convertToBlob({type: "image/png"});
 
     return await BlobToBase64(blob);
   }
