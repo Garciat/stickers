@@ -30,8 +30,9 @@
     };
 
     const json = JSON.stringify(pack);
+    const blob = new Blob([json], {type: "text/plain"});
     
-    await navigator.clipboard.write([new ClipboardItem({["text/plain"]: json})]);
+    await navigator.clipboard.write([new ClipboardItem({[blob.type]: blob})]);
   }
 
   async function SingleColorImage(width, height, color) {
